@@ -5,30 +5,29 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Clase LectorArchivo
- * @author Axel Cote 
+ * Esta clase permite leer archivos y lanza una excepción personalizada en caso de error
+ * @author Axel Cote
  * @version Octubre-2024
-**/
+ **/
 
 public class LectorArchivo {
   /**
    * Metodo leerArchivo
+   * @param ruta -> Ruta del archivo a leer
    * @return BufferedReader para lectura del archivo
-   * @throws FileNotFoundException si el archivo no se encuentra
+   * @throws ArchivoException si ocurre un error al abrir o leer el archivo
    */
 
-   public BufferedReader leerArchivo(String ruta) throws FileNotFoundException {
+  public BufferedReader leerArchivo(String ruta) throws ArchivoException {
     BufferedReader br = null;
 
     try {
       br = new BufferedReader(new FileReader(ruta));
-    } catch (FileNotFoundException e) {
-      System.err.println("No se encontró el archivo: " + e.getMessage());
+    } catch (IOException e) { 
+      throw new ArchivoException("Ocurrio un error al intentar abrir el archivo: " + e.getMessage());
     }
     
     return br;
